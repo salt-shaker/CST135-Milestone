@@ -4,8 +4,9 @@
 package com.milestone;
 
 /**
- * @author Sashae
+ * The Class BaseContact.
  *
+ * @author Sashae
  */
 public class BaseContact {
 

@@ -3,12 +3,17 @@
  */
 package com.milestone;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Sashae
+ * The Class MenuOptions.
  *
+ * @author Sashae
  */
 public class MenuOptions {
 
+	/**
+	 * Main.
+	 */
 	public void main() {
 		System.out.println(" __________________________");
 		System.out.println("|        MAIN MENU         |");
@@ -22,18 +27,33 @@ public class MenuOptions {
 		System.out.println("|__________________________|");
 	}
 
+	/**
+	 * View.
+	 */
 	public void view() {
 	}
 
+	/**
+	 * Search.
+	 */
 	public void search() {
 	}
 
+	/**
+	 * Creates the.
+	 */
 	public void create() {
 	}
 
+	/**
+	 * Update.
+	 */
 	public void update() {
 	}
 
+	/**
+	 * Delete.
+	 */
 	public void delete() {
 	}
 }

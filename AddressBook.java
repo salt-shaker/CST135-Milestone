@@ -3,22 +3,32 @@
  */
 package com.milestone;
 
-import java.util.Scanner; 
+import java.util.Scanner;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Sashae
+ * The Class AddressBook.
  *
+ * @author Sashae
  */
-public class AddressBook {
+public class AddressBook extends Logger {
 
-	private int curMenu;
+	private int curMenu;	
 	private MenuOptions menu;
 
+	/**
+	 * Instantiates a new address book.
+	 */
 	public AddressBook() {
 		this.curMenu = 0;
 		this.menu = new MenuOptions();
 	}
 
+	/**
+	 * Controller.
+	 *
+	 * @return true, if successful
+	 */
 	// Main Logic for Address Book
 	public boolean controller() {
 
@@ -33,6 +43,11 @@ public class AddressBook {
 		return true;
 	}
 
+	/**
+	 * Gets the input.
+	 *
+	 * @return the input
+	 */
 	// Gets User input
 	private boolean getInput() {
 
@@ -52,6 +67,11 @@ public class AddressBook {
 		return true;
 	}
 
+	/**
+	 * Gets the menu.
+	 *
+	 * @return the menu
+	 */
 	// Get Menu for current app location
 	private void getMenu() {
 
@@ -75,6 +95,12 @@ public class AddressBook {
 		}
 	}
 
+	/**
+	 * Gets the actions.
+	 *
+	 * @param input the input
+	 * @return the actions
+	 */
 	// Current actions for appropriate menu
 	private boolean getActions(String input) {
 		switch (curMenu) {
@@ -95,6 +121,12 @@ public class AddressBook {
 
 	}
 
+	/**
+	 * Menu 0.
+	 *
+	 * @param input the input
+	 * @return true, if successful
+	 */
 	// Main Menu
 	private boolean menu0(String input) {
 		// Check User Input
@@ -123,6 +155,12 @@ public class AddressBook {
 		return true;
 	}
 
+	/**
+	 * Menu 1.
+	 *
+	 * @param input the input
+	 * @return true, if successful
+	 */
 	// View Menu
 	private boolean menu1(String input) {
 		// Check User Input
@@ -136,6 +174,12 @@ public class AddressBook {
 		return true;
 	}
 
+	/**
+	 * Menu 2.
+	 *
+	 * @param input the input
+	 * @return true, if successful
+	 */
 	// Search Menu
 	private boolean menu2(String input) {
 		// Check User Input
@@ -149,6 +193,12 @@ public class AddressBook {
 		return true;
 	}
 
+	/**
+	 * Menu 3.
+	 *
+	 * @param input the input
+	 * @return true, if successful
+	 */
 	// Create Menu
 	private boolean menu3(String input) {
 		// Check User Input
@@ -162,6 +212,12 @@ public class AddressBook {
 		return true;
 	}
 
+	/**
+	 * Menu 4.
+	 *
+	 * @param input the input
+	 * @return true, if successful
+	 */
 	// Update Menu
 	private boolean menu4(String input) {
 		// Check User Input
@@ -175,6 +231,12 @@ public class AddressBook {
 		return true;
 	}
 
+	/**
+	 * Menu 5.
+	 *
+	 * @param input the input
+	 * @return true, if successful
+	 */
 	// Delete Menu
 	private boolean menu5(String input) {
 		// Check User Input
@@ -186,5 +248,46 @@ public class AddressBook {
 			System.out.println("Input not valid!");
 		}
 		return true;
+	}
+
+	/**
+	 * Adds the.
+	 */
+	// Add new Contact
+	private void add() {
+
+	}
+
+	/**
+	 * Removes the.
+	 */
+	// Remove a contact
+	private void remove() {
+
+	}
+
+	/**
+	 * Display.
+	 */
+	// Display all contacts
+	private void display() {
+
+	}
+
+	/**
+	 * Sort by.
+	 */
+	// Display a sorted list of all contacts
+	private void sortBy() {
+
+	}
+
+	/**
+	 * Search.
+	 */
+	// Display contact matching search criteria
+	private void search() {
+
+		// Implement search method is base contact class that allows searching for match in class
 	}
 }

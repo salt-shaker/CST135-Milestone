@@ -4,8 +4,9 @@
 package com.milestone;
 
 /**
- * @author Sashae
+ * The Class BusinessContact.
  *
+ * @author Sashae
  */
 public class BusinessContact extends BaseContact{
 

@@ -3,16 +3,18 @@
  */
 package com.milestone;
 
-import java.util.Scanner;
-
+// TODO: Auto-generated Javadoc
 /**
- * @author Sashae
+ * The Class Console.
  *
+ * @author Sashae
  */
 public class Console {
 
 	/**
-	 * @param args
+	 * The main method.
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -31,6 +33,9 @@ public class Console {
 
 	}
 
+	/**
+	 * App info.
+	 */
 	public static void appInfo() {
 		System.out.println(" __________________________");
 		System.out.println("|   CST135 Final Project   |");

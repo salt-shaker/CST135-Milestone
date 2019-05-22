@@ -5,12 +5,20 @@ package com.milestone;
 
 import java.util.Scanner;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Sashae
+ * The Class UserInput.
  *
+ * @author Sashae
  */
 public class UserInput {
 
+	/**
+	 * Gets the input string.
+	 *
+	 * @param scanner the scanner
+	 * @return the input string
+	 */
 	public String getInputString(Scanner scanner) {
 
 		boolean checker = false;
