@@ -19,11 +19,13 @@ public class Console {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		Settings settings = new Settings();
+		
 		// Output App Info
-		appInfo();
+		settings.appInfo();
 		
 		AddressBook app = new AddressBook();
-
+		
 		// Main Loop
 		while (true) {
 
@@ -31,19 +33,6 @@ public class Console {
 				break;
 		}
 
-	}
-
-	/**
-	 * App info.
-	 */
-	public static void appInfo() {
-		System.out.println(" __________________________");
-		System.out.println("|   CST135 Final Project   |");
-		System.out.println("|      Contact Manager     |");
-		System.out.println("|                          |");
-		System.out.println("| @version  1.0            |");
-		System.out.println("| @author   Sashae Owens   |");
-		System.out.println("|__________________________|");
 	}
 
 }

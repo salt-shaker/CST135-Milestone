@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -27,7 +28,7 @@ public class FileAccessService implements DataAccessService {
 	 */
 	// Load file
 	private BufferedReader get() throws FileNotFoundException {
-		File file = new File("contacts.txt");
+		File file = new File("contacts.idb");
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		return br;
 
@@ -37,13 +38,22 @@ public class FileAccessService implements DataAccessService {
 	 * Read.
 	 *
 	 * @param br the br
+	 * @return 
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	// Read File
-	private void read(BufferedReader br) throws IOException {
+	private ArrayList<BaseContact> read(BufferedReader br) throws IOException {
 		String st;
-		while ((st = br.readLine()) != null)
-			System.out.println(st);
+		ArrayList<BaseContact> contacts = new ArrayList<BaseContact>();
+		while ((st = br.readLine()) != null) {
+			String[] tmp = st.split(":-:");
+			if(tmp[0].equals("person")) {
+				contacts.add(new PersonContact(tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7],tmp[8],tmp[9],tmp[10],tmp[11]));
+			} else if (tmp[0].equals("business")) {
+				contacts.add(new BusinessContact(tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7],tmp[8],tmp[9],tmp[10],tmp[11],tmp[12],tmp[13],tmp[14]));
+			}
+		}
+		return contacts;
 	}
 	
 	/**

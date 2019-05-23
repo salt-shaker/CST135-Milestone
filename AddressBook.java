@@ -255,7 +255,8 @@ public class AddressBook extends Logger {
 	 */
 	// Add new Contact
 	private void add() {
-
+		// Person Contact - uid, fName, lName, phone, email, address, city, state, zipcode, country, picture, workPhone
+		// Business Contact - uid, fName, lName, phone, email, address, city, state, zipcode, country, picture, businessPhone, openHour, closeHour, siteURL
 	}
 
 	/**
