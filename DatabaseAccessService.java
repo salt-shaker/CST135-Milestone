@@ -3,6 +3,8 @@
  */
 package com.milestone;
 
+import java.util.ArrayList;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class DatabaseAccessService.
@@ -10,23 +12,25 @@ package com.milestone;
  * @author Sashae
  */
 public class DatabaseAccessService implements DataAccessService{
+	
+	private Logger logger;
 
 	/**
-	 * Gets the all contacts.
-	 *
-	 * @return the all contacts
+	 * @param logger
 	 */
-	@Override
-	public void getAllContacts() {
-		// TODO Auto-generated method stub
-		
+	public DatabaseAccessService(Logger newLogger) {
+		this.logger = newLogger;
 	}
 
-	/**
-	 * Save all contacts.
-	 */
+
 	@Override
-	public void saveAllContacts() {
+	public ArrayList<BaseContact> getAllContacts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveAllContacts(ArrayList<BaseContact> contacts) {
 		// TODO Auto-generated method stub
 		
 	}

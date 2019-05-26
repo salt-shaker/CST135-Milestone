@@ -3,6 +3,8 @@
  */
 package com.milestone;
 
+import java.util.ArrayList;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Interface DataAccessService.
@@ -16,10 +18,10 @@ public interface DataAccessService {
 	 *
 	 * @return the all contacts
 	 */
-	public void getAllContacts();
-	
+	public ArrayList<BaseContact> getAllContacts();
+
 	/**
-	 * Save all contacts.
+	 * @param contacts
 	 */
-	public void saveAllContacts();
+	void saveAllContacts(ArrayList<BaseContact> contacts);
 }

@@ -3,29 +3,45 @@
  */
 package com.milestone;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AddressBook.
+ * 
+ * The central class to the address book. All other classes except the console
+ * class associate with the address book class.
  *
  * @author Sashae
  */
-public class AddressBook extends Logger {
+public class AddressBook {
 
-	private int curMenu;	
+	private int curMenu;
 	private MenuOptions menu;
+	private Logger logger;
+	private UserInput uInput;
+	private Scanner scanner;
+	private ArrayList<BaseContact> contacts = new ArrayList<BaseContact>();
+	private BusinessService biz;
 
 	/**
 	 * Instantiates a new address book.
 	 */
-	public AddressBook() {
+	public AddressBook(Logger newLogger) {
 		this.curMenu = 0;
-		this.menu = new MenuOptions();
+		this.logger = newLogger;
+		this.menu = new MenuOptions(newLogger);
+		this.uInput = new UserInput(newLogger);
+		this.scanner = new Scanner(System.in);
+		this.biz = new BusinessService(newLogger);
+		logger.log("Address Book Created.");
 	}
 
 	/**
 	 * Controller.
+	 * 
+	 * Check if for user input, if user selects "exit" on any menu, getInput()
+	 * returns false.
 	 *
 	 * @return true, if successful
 	 */
@@ -34,6 +50,18 @@ public class AddressBook extends Logger {
 
 		// Get Current Menu
 		getMenu();
+		
+		this.contacts = biz.load();
+		
+		contacts.add(new BusinessContact());
+		
+		biz.save(this.contacts);
+
+		for (BaseContact x : contacts) {
+			System.out.println(x.toString());
+		}
+
+		//System.out.println(contacts.get(0).toString());
 
 		// Get User Input
 		if (!getInput())
@@ -51,12 +79,6 @@ public class AddressBook extends Logger {
 	// Gets User input
 	private boolean getInput() {
 
-		// User Input Object
-		UserInput uInput = new UserInput();
-
-		// Scanner Object
-		Scanner scanner = new Scanner(System.in);
-
 		// Get User Input
 		String input = uInput.getInputString(scanner);
 
@@ -67,32 +89,8 @@ public class AddressBook extends Logger {
 		return true;
 	}
 
-	/**
-	 * Gets the menu.
-	 *
-	 * @return the menu
-	 */
-	// Get Menu for current app location
 	private void getMenu() {
-
-		switch (curMenu) {
-		// Main Menu
-		case 0:
-			menu.main();
-			break;
-		case 1:
-			menu.view();
-			break;
-		case 2:
-			menu.create();
-			break;
-		case 3:
-			menu.update();
-			break;
-		case 4:
-			menu.delete();
-			break;
-		}
+		menu.getMenu(curMenu);
 	}
 
 	/**
@@ -118,7 +116,6 @@ public class AddressBook extends Logger {
 			return menu5(input);
 		}
 		return true;
-
 	}
 
 	/**
@@ -255,8 +252,10 @@ public class AddressBook extends Logger {
 	 */
 	// Add new Contact
 	private void add() {
-		// Person Contact - uid, fName, lName, phone, email, address, city, state, zipcode, country, picture, workPhone
-		// Business Contact - uid, fName, lName, phone, email, address, city, state, zipcode, country, picture, businessPhone, openHour, closeHour, siteURL
+		// Person Contact - uid, fName, lName, phone, email, address, city, state,
+		// zipcode, country, picture, workPhone
+		// Business Contact - uid, fName, lName, phone, email, address, city, state,
+		// zipcode, country, picture, businessPhone, openHour, closeHour, siteURL
 	}
 
 	/**
@@ -289,6 +288,7 @@ public class AddressBook extends Logger {
 	// Display contact matching search criteria
 	private void search() {
 
-		// Implement search method is base contact class that allows searching for match in class
+		// Implement search method is base contact class that allows searching for match
+		// in class
 	}
 }

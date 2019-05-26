@@ -13,10 +13,12 @@ import java.util.Date;
  */
 public class Logger {
 
+	public Logger() {
+		log("**** Application Started ****");
+	}
+
 	/**
-	 * ********************
-	 * getDateTime Method *
-	 * ********************.
+	 * ******************** getDateTime Method * ********************.
 	 *
 	 * @return the date time
 	 */
@@ -27,9 +29,7 @@ public class Logger {
 	}
 
 	/**
-	 * *******************
-	 * logWritter Method *
-	 * *******************.
+	 * ******************* logWritter Method * *******************.
 	 *
 	 * @param logData the log data
 	 * @throws IOException Signals that an I/O exception has occurred.
@@ -38,7 +38,7 @@ public class Logger {
 
 		BufferedWriter writer = new BufferedWriter(new FileWriter("./log.txt", true)); // Set true for append mode
 		writer.newLine(); // Add new line
-		writer.write(logData + " | " + getDateTime());
+		writer.write(getDateTime() + " | " + logData);
 		writer.close();
 	}
 

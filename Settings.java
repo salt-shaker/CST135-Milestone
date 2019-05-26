@@ -11,18 +11,26 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Sashae
+ * The Class Settings.
  *
+ * @author Sashae
  */
 public class Settings {
-
+	
+	private Logger logger;
 	private String appName;
 	private String appVersion;
 	private int uidCoutner;
 
+	/**
+	 * Instantiates a new settings.
+	 */
 	// Constructor
-	public Settings() {
+	public Settings(Logger newLogger) {
+		this.logger = newLogger;
+		
 		// Get Config file
 		try {
 			String[] options = read(get());
@@ -35,15 +43,22 @@ public class Settings {
 			this.appVersion = "v1.0";
 			this.uidCoutner = 0;
 			update();
+			logger.log("Unable to load config. Default config created.");
 			// Not needed. If update fails then panic. // e.printStackTrace();
 		} catch (IOException e) {
 			// Something went wrong
-			e.printStackTrace();
+			logger.log("Unable to load config. Unable to create default config.");
+			//e.printStackTrace();
 			System.exit(1);
+		} finally {
+			logger.log("Config loaded successfully.");
 		}
 
 	}
 
+	/**
+	 * Update.
+	 */
 	public void update() {
 		// Try to create new save file
 		try {
@@ -55,10 +70,18 @@ public class Settings {
 		}
 	}
 
+	/**
+	 * Gets the uid coutner.
+	 *
+	 * @return the uid coutner
+	 */
 	public int getUidCoutner() {
 		return uidCoutner;
 	}
 
+	/**
+	 * Adds the UID.
+	 */
 	public void addUID() {
 		this.uidCoutner++;
 	}
@@ -71,7 +94,7 @@ public class Settings {
 	 */
 	// Load file
 	private BufferedReader get() throws FileNotFoundException {
-		File file = new File("settings.in");
+		File file = new File("config.in");
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		return br;
 
@@ -81,6 +104,7 @@ public class Settings {
 	 * Read.
 	 *
 	 * @param br the br
+	 * @return the string[]
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	// Read File
@@ -99,7 +123,7 @@ public class Settings {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private void write(String logData) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("options.in", true)); // Set true for append mode
+		BufferedWriter writer = new BufferedWriter(new FileWriter("config.in", true)); // Set true for append mode
 		writer.write(logData);
 		writer.close();
 	}

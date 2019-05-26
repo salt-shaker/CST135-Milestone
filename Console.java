@@ -3,9 +3,11 @@
  */
 package com.milestone;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Console.
+ * 
+ * Entry point for the console application. It constructs the necessary classes
+ * to get the application running.
  *
  * @author Sashae
  */
@@ -17,15 +19,12 @@ public class Console {
 	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-		Settings settings = new Settings();
-		
-		// Output App Info
-		settings.appInfo();
-		
-		AddressBook app = new AddressBook();
-		
+		Logger logger = new Logger(); // Create logger
+		Settings settings = new Settings(logger); // Get app config
+		settings.appInfo(); // Output app info
+		AddressBook app = new AddressBook(logger); // Create address book
+
 		// Main Loop
 		while (true) {
 

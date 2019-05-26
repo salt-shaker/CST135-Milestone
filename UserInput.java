@@ -12,6 +12,15 @@ import java.util.Scanner;
  * @author Sashae
  */
 public class UserInput {
+	
+	private Logger logger;
+
+	/**
+	 * @param newLogger
+	 */
+	public UserInput(Logger newLogger) {
+		this.logger = newLogger;
+	}
 
 	/**
 	 * Gets the input string.
@@ -31,6 +40,7 @@ public class UserInput {
 			} catch (java.util.InputMismatchException e) {
 				checker = false;
 				System.out.println("Input not valid!");
+				logger.log("Invalid input but user. | " + input + " |");
 				scanner.nextLine();
 			} finally {
 				if(checker) return input;
