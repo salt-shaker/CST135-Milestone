@@ -4,6 +4,7 @@
 package com.milestone;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -356,6 +357,14 @@ public class AddressBook {
 		case "exit":
 			return false;
 		default:
+			
+			/*Sorting based on Student Name*/
+			   System.out.println("Contact ASC Name Sorting:");
+			   Collections.sort(contacts, BaseContact.fNameComparatorASC);
+
+			   for(BaseContact x: contacts){
+					System.out.println(x.toString());
+			   }
 			System.out.println("Input not valid!");
 		}
 		return true;

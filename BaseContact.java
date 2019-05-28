@@ -11,8 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.Scanner;
-
 import javax.imageio.ImageIO;
 
 // TODO: Auto-generated Javadoc
@@ -336,14 +336,148 @@ public class BaseContact {
 		// TODO Auto-generated method stub
 		return this.type;
 	}
-	
+
 	// @override
 	public void fOutput() {
-		
+
 	}
 
 	// @override
 	public boolean editiableFields(String string, Scanner scanner) {
 		return true;
 	}
+
+	/**
+	 * Equals.
+	 *
+	 * @param comparePerson the compare person
+	 * @return true, if successful
+	 */
+	public boolean equals(BaseContact compare) {
+		if (this == compare) {
+			System.out.println("The objects reference the same instace.");
+			return true;
+		}
+
+		if (compare == null) {
+			System.out.println("Object submited to compare is null.");
+			return false;
+		}
+
+		if (this.getClass() != compare.getClass()) {
+			System.out.println("These objects are not the same class.");
+			return false;
+		}
+
+		// Case compare object into a person object
+		BaseContact bc = (BaseContact) compare;
+
+		return (this.uid == bc.getUID());
+	}
+
+	/* Comparator for sorting the list by Student Name */
+	public static Comparator<BaseContact> fNameComparatorASC = new Comparator<BaseContact>() {
+
+		public int compare(BaseContact c1, BaseContact c2) {
+			String cfName1 = c1.getfName().toUpperCase();
+			String clName1 = c1.getlName().toUpperCase();
+			String cfName2 = c2.getfName().toUpperCase();
+			String clName2 = c2.getlName().toUpperCase();
+
+			// ascending order
+			int value = cfName1.compareTo(cfName2);
+			if (value == 0) {
+				return clName1.compareTo(clName2);
+			} else {
+				return value;
+			}
+		}
+	};
+
+	/* Comparator for sorting the list by Student Name */
+	public static Comparator<BaseContact> fNameComparatorDSC = new Comparator<BaseContact>() {
+
+		public int compare(BaseContact c1, BaseContact c2) {
+			String cfName1 = c1.getfName().toUpperCase();
+			String clName1 = c1.getlName().toUpperCase();
+			String cfName2 = c2.getfName().toUpperCase();
+			String clName2 = c2.getlName().toUpperCase();
+
+			// ascending order
+			int value = cfName2.compareTo(cfName1);
+			if (value == 0) {
+				return clName2.compareTo(clName1);
+			} else {
+				return value;
+			}
+		}
+	};
+
+	/* Comparator for sorting the list by Student Name */
+	public static Comparator<BaseContact> lNameComparatorASC = new Comparator<BaseContact>() {
+
+		public int compare(BaseContact c1, BaseContact c2) {
+			String cfName1 = c1.getfName().toUpperCase();
+			String clName1 = c1.getlName().toUpperCase();
+			String cfName2 = c2.getfName().toUpperCase();
+			String clName2 = c2.getlName().toUpperCase();
+
+			// ascending order
+			int value = clName1.compareTo(clName2);
+			if (value == 0) {
+				return cfName1.compareTo(cfName2);
+			} else {
+				return value;
+			}
+		}
+	};
+
+	/* Comparator for sorting the list by Student Name */
+	public static Comparator<BaseContact> lNameComparatorDSC = new Comparator<BaseContact>() {
+
+		public int compare(BaseContact c1, BaseContact c2) {
+			String cfName1 = c1.getfName().toUpperCase();
+			String clName1 = c1.getlName().toUpperCase();
+			String cfName2 = c2.getfName().toUpperCase();
+			String clName2 = c2.getlName().toUpperCase();
+
+			// ascending order
+			int value = clName2.compareTo(clName1);
+			if (value == 0) {
+				return cfName2.compareTo(cfName1);
+			} else {
+				return value;
+			}
+		}
+	};
+
+	/* Comparator for sorting the list by roll no */
+	public static Comparator<BaseContact> uidComparatorASC = new Comparator<BaseContact>() {
+
+		public int compare(BaseContact c1, BaseContact c2) {
+
+			int uid1 = Integer.parseInt(c1.getUID());
+			int uid2 = Integer.parseInt(c2.getUID());
+
+			/* For ascending order */
+			return uid1 - uid2;
+
+			/* For descending order */
+			// rollno2-rollno1;
+		}
+	};
+
+	/* Comparator for sorting the list by roll no */
+	public static Comparator<BaseContact> uidComparatorDSC = new Comparator<BaseContact>() {
+
+		public int compare(BaseContact c1, BaseContact c2) {
+
+			int uid1 = Integer.parseInt(c1.getUID());
+			int uid2 = Integer.parseInt(c2.getUID());
+
+			/* For descending order */
+			return uid2 - uid1;
+
+		}
+	};
 }
