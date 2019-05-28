@@ -75,8 +75,9 @@ public class Settings {
 	 *
 	 * @return the uid coutner
 	 */
-	public int getUidCoutner() {
-		return uidCoutner;
+	public String getUidCoutner() {
+		addUID();
+		return String.valueOf(uidCoutner);
 	}
 
 	/**
@@ -123,7 +124,7 @@ public class Settings {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private void write(String logData) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("config.in", true)); // Set true for append mode
+		BufferedWriter writer = new BufferedWriter(new FileWriter("config.in", false)); // Set true for append mode
 		writer.write(logData);
 		writer.close();
 	}

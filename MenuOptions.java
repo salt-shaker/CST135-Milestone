@@ -10,7 +10,7 @@ package com.milestone;
  * @author Sashae
  */
 public class MenuOptions {
-	
+
 	private Logger logger;
 
 	/**
@@ -22,7 +22,7 @@ public class MenuOptions {
 	}
 
 	/**
-	 * Main.
+	 * Main. 
 	 */
 	private void main() {
 		System.out.println(" __________________________");
@@ -30,10 +30,10 @@ public class MenuOptions {
 		System.out.println("|                          |");
 		System.out.println("| Options:                 |");
 		System.out.println("|    1. View               |");
-		System.out.println("|    2. Search             |");
-		System.out.println("|    3. Create             |");
-		System.out.println("|    4. Update             |");
-		System.out.println("|    5. Delete             |");
+		System.out.println("|    2. Create             |");
+		System.out.println("|    3. Edit               |");
+		System.out.println("|    4. Delete             |");
+		System.out.println("|    5. Search             |");
 		System.out.println("|    6. Exit               |");
 		System.out.println("|                          |");
 		System.out.println("|   Type 'help' for help   |");
@@ -44,7 +44,7 @@ public class MenuOptions {
 	 * View.
 	 */
 	private void view() {
-		
+
 		System.out.println(" __________________________");
 		System.out.println("|        VIEW MENU         |");
 		System.out.println("|                          |");
@@ -53,6 +53,32 @@ public class MenuOptions {
 		System.out.println("|    2. Sort               |");
 		System.out.println("|    3. Back               |");
 		System.out.println("|    4. Exit               |");
+		System.out.println("|                          |");
+		System.out.println("|   Type 'help' for help   |");
+		System.out.println("|__________________________|");
+	}
+
+	// View Sub-menu Display
+	private void display() {
+
+		System.out.println(" __________________________");
+		System.out.println("|       DISPLAY MENU       |");
+		System.out.println("|                          |");
+		System.out.println("|   To view contact enter  |");
+		System.out.println("|     UID for contact.     |");
+		System.out.println("|                          |");
+		System.out.println("|   Type 'help' for help   |");
+		System.out.println("|__________________________|");
+	}
+	
+	// Sort Menu
+	private void sort() {
+		System.out.println(" __________________________");
+		System.out.println("|        SORT MENU         |");
+		System.out.println("|                          |");
+		System.out.println("|  Enter Field to sort by  |");
+		System.out.println("|  then select ascending   |");
+		System.out.println("|   or descending order.   |");
 		System.out.println("|                          |");
 		System.out.println("|   Type 'help' for help   |");
 		System.out.println("|__________________________|");
@@ -88,6 +114,20 @@ public class MenuOptions {
 		System.out.println("|   Type 'help' for help   |");
 		System.out.println("|__________________________|");
 	}
+	
+	/**
+	 * Edit.
+	 */
+	private void editing() {
+		System.out.println(" __________________________");
+		System.out.println("|         EDITING          |");
+		System.out.println("|                          |");
+		System.out.println("|  Enter field you would   |");
+		System.out.println("|      like to edit.       |");
+		System.out.println("|                          |");
+		System.out.println("|   Type 'help' for help   |");
+		System.out.println("|__________________________|");
+	}
 
 	/**
 	 * Delete.
@@ -102,7 +142,7 @@ public class MenuOptions {
 		System.out.println("|   Type 'help' for help   |");
 		System.out.println("|__________________________|");
 	}
-	
+
 	/**
 	 * Search.
 	 */
@@ -148,7 +188,19 @@ public class MenuOptions {
 			break;
 		case 5:
 			search();
-			logger.log("@ Seache Menu");
+			logger.log("@ Search Menu");
+			break;
+		case 6:
+			display();
+			logger.log("@ Display Menu");
+			break;
+		case 7:
+			sort();
+			logger.log("@ Sort Menu");
+			break;
+		case 8:
+			editing();
+			logger.log("@ Editing Menu");
 			break;
 		}
 	}

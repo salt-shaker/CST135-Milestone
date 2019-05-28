@@ -49,21 +49,31 @@ public class FileAccessService implements DataAccessService {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private ArrayList<BaseContact> read(BufferedReader br) throws IOException {
+		
+		// Create Variables
 		String st;
 		ArrayList<BaseContact> contacts = new ArrayList<BaseContact>();
+		
+		// Read Contents of file line by line
 		while ((st = br.readLine()) != null) {
 
+			// Convert from CSV to array object
 			String[] x = st.split(";");
 			for (String y : x) {
 				
 				String[] z = y.split(",");
+				ArrayList<String> list = new ArrayList<String>();
+				
+				//Copy from array to arrayList
+				for(String e : z) {
+					list.add(e);
+				}
 
-				if (z[0].equals("person")) {
-					contacts.add(new PersonContact(z[1], z[2], z[3], z[4], z[5], z[6], z[7], z[8], z[9], z[10], z[11],
-							z[12], z[13]));
-				} else if (z[0].equals("business")) {
-					contacts.add(new BusinessContact(z[1], z[2], z[3], z[4], z[5], z[6], z[7], z[8], z[9], z[10], z[11],
-							z[12], z[13], z[14],z[15]));
+				// Determine type of contact then create
+				if (z[1].toLowerCase().equals("personal")) {
+					contacts.add(new PersonContact(list));
+				} else if (z[1].toLowerCase().equals("business")) {
+					contacts.add(new BusinessContact(list));
 				}
 			}
 		}

@@ -23,7 +23,8 @@ public class Console {
 		Logger logger = new Logger(); // Create logger
 		Settings settings = new Settings(logger); // Get app config
 		settings.appInfo(); // Output app info
-		AddressBook app = new AddressBook(logger); // Create address book
+		AddressBook app = new AddressBook(settings, logger); // Create address book
+		app.load(); //Load Contacts
 
 		// Main Loop
 		while (true) {

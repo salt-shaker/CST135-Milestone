@@ -4,6 +4,7 @@
 package com.milestone;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -17,8 +18,10 @@ import java.util.Scanner;
 public class AddressBook {
 
 	private int curMenu;
+	private int curContact;
 	private MenuOptions menu;
 	private Logger logger;
+	private Settings settings;
 	private UserInput uInput;
 	private Scanner scanner;
 	private ArrayList<BaseContact> contacts = new ArrayList<BaseContact>();
@@ -26,15 +29,26 @@ public class AddressBook {
 
 	/**
 	 * Instantiates a new address book.
+	 * 
+	 * @param settings
 	 */
-	public AddressBook(Logger newLogger) {
+	public AddressBook(Settings newSettings, Logger newLogger) {
 		this.curMenu = 0;
 		this.logger = newLogger;
+		this.settings = newSettings;
 		this.menu = new MenuOptions(newLogger);
 		this.uInput = new UserInput(newLogger);
 		this.scanner = new Scanner(System.in);
 		this.biz = new BusinessService(newLogger);
 		logger.log("Address Book Created.");
+	}
+
+	public void load() {
+		this.contacts = biz.load();
+	}
+
+	public void save() {
+		biz.save(contacts);
 	}
 
 	/**
@@ -51,17 +65,9 @@ public class AddressBook {
 		// Get Current Menu
 		getMenu();
 		
-		this.contacts = biz.load();
-		
-		contacts.add(new BusinessContact());
-		
-		biz.save(this.contacts);
-
-		for (BaseContact x : contacts) {
-			System.out.println(x.toString());
+		if(curMenu == 8) {
+			contacts.get(curContact).fOutput();
 		}
-
-		//System.out.println(contacts.get(0).toString());
 
 		// Get User Input
 		if (!getInput())
@@ -90,7 +96,7 @@ public class AddressBook {
 	}
 
 	private void getMenu() {
-		menu.getMenu(curMenu);
+		this.menu.getMenu(this.curMenu);
 	}
 
 	/**
@@ -114,6 +120,12 @@ public class AddressBook {
 			return menu4(input);
 		case 5:
 			return menu5(input);
+		case 6:
+			return menu6(input);
+		case 7:
+			return menu7(input);
+		case 8:
+			return menu8(input);
 		}
 		return true;
 	}
@@ -131,16 +143,16 @@ public class AddressBook {
 		case "view":
 			curMenu = 1;
 			break;
-		case "search":
+		case "create":
 			curMenu = 2;
 			break;
-		case "create":
+		case "edit":
 			curMenu = 3;
 			break;
-		case "update":
+		case "delete":
 			curMenu = 4;
 			break;
-		case "delete":
+		case "search":
 			curMenu = 5;
 			break;
 		case "exit":
@@ -162,7 +174,15 @@ public class AddressBook {
 	private boolean menu1(String input) {
 		// Check User Input
 		switch (input.toLowerCase()) {
-
+		case "display":
+			curMenu = 6;
+			break;
+		case "sort":
+			curMenu = 7;
+			break;
+		case "back":
+			this.curMenu = 0;
+			break;
 		case "exit":
 			return false;
 		default:
@@ -177,15 +197,25 @@ public class AddressBook {
 	 * @param input the input
 	 * @return true, if successful
 	 */
-	// Search Menu
+	// Create Menu
 	private boolean menu2(String input) {
 		// Check User Input
 		switch (input.toLowerCase()) {
-
+		case "back":
+			curMenu = 0;
+			break;
 		case "exit":
 			return false;
 		default:
-			System.out.println("Input not valid!");
+			// Need to track user input to display prompts and make sure fields are updated
+			// correctly
+			if (input.equals("")) {
+				add();
+				// Need to set prompt showing contact created successfully
+				curMenu = 0;
+			} else {
+				System.out.println("Input not valid!");
+			}
 		}
 		return true;
 	}
@@ -196,15 +226,17 @@ public class AddressBook {
 	 * @param input the input
 	 * @return true, if successful
 	 */
-	// Create Menu
+	// Edit Menu
 	private boolean menu3(String input) {
 		// Check User Input
 		switch (input.toLowerCase()) {
-
+		case "back":
+			curMenu = 0;
+			break;
 		case "exit":
 			return false;
 		default:
-			System.out.println("Input not valid!");
+			
 		}
 		return true;
 	}
@@ -215,15 +247,23 @@ public class AddressBook {
 	 * @param input the input
 	 * @return true, if successful
 	 */
-	// Update Menu
+	// Delete Menu
 	private boolean menu4(String input) {
 		// Check User Input
 		switch (input.toLowerCase()) {
-
+		case "back":
+			curMenu = 0;
+			break;
 		case "exit":
 			return false;
 		default:
-			System.out.println("Input not valid!");
+			if (userExist(input)) {
+				// verify user wanted to delete with second prompt
+				// the remove contact from <list> and save contacts
+				delete(input);
+			} else {
+				System.out.println("Input not valid!");
+			}
 		}
 		return true;
 	}
@@ -234,15 +274,118 @@ public class AddressBook {
 	 * @param input the input
 	 * @return true, if successful
 	 */
-	// Delete Menu
+	// Search Menu
 	private boolean menu5(String input) {
 		// Check User Input
 		switch (input.toLowerCase()) {
+		case "back":
+			curMenu = 0;
+			break;
+		case "exit":
+			return false;
+		default:
+			if (userExist(input)) {
+				// Get User and load contact menu
+				// Shows contact info and options { Call, Text, Email, Go To Web Site, Edit,
+				// Delete, back, exit}
+				// add variable to track current contact being edited
+				search(input);
+			} else {
+				System.out.println("Input not valid!");
+			}
+		}
+		return true;
+	}
 
+	/**
+	 * Menu 6.
+	 *
+	 * @param input the input
+	 * @return true, if successful
+	 */
+	// Display Menu
+	private boolean menu6(String input) {
+		// Check User Input
+
+		switch (input.toLowerCase()) {
+		case "back":
+			curMenu = 0;
+			break;
+		case "exit":
+			return false;
+		case "":
+			display();
+		default:
+
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param string
+	 * @return
+	 */
+	private boolean userExist(String input) {
+		try {
+			for (BaseContact x : contacts) {
+				if (x.getUID().equals(input)) {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Something Went Wrong in UserExist()");
+		}
+
+		return false;
+	}
+
+	/**
+	 * Menu 7.
+	 *
+	 * @param input the input
+	 * @return true, if successful
+	 */
+	// Sort Menu
+	private boolean menu7(String input) {
+		// Check User Input
+		switch (input.toLowerCase()) {
+		case "back":
+			curMenu = 0;
+			break;
 		case "exit":
 			return false;
 		default:
 			System.out.println("Input not valid!");
+		}
+		return true;
+	}
+	
+	/**
+	 * Menu 8.
+	 *
+	 * @param input the input
+	 * @return true, if successful
+	 */
+	// Editing Menu
+	private boolean menu8(String input) {
+		// Check User Input
+		switch (input.toLowerCase()) {
+		case "back":
+			curMenu = 0;
+			break;
+		case "exit":
+			return false;
+		default:
+			if (contacts.get(curContact).editiableFields(input.toLowerCase(), scanner)) {
+				// Get User and load contact menu
+				// Shows contact info and options { Call, Text, Email, Go To Web Site, Edit,
+				// Delete, back, exit}
+				// add variable to track current contact being edited
+				biz.save(contacts);
+			} else {
+				System.out.println("Input not valid!");
+			}
 		}
 		return true;
 	}
@@ -252,19 +395,128 @@ public class AddressBook {
 	 */
 	// Add new Contact
 	private void add() {
-		// Person Contact - uid, fName, lName, phone, email, address, city, state,
-		// zipcode, country, picture, workPhone
-		// Business Contact - uid, fName, lName, phone, email, address, city, state,
-		// zipcode, country, picture, businessPhone, openHour, closeHour, siteURL
+
+		System.out.println("Is this a Personal or Business Contact");
+		System.out.println("Enter P for personal");
+		System.out.println("or B for Business");
+
+		// Get User Input
+		String input = uInput.getInputString(scanner);
+
+		if (input.toLowerCase().equals("b")) {
+
+			ArrayList<String> bQuestions = new ArrayList<String>();
+			ArrayList<String> bAnswers = new ArrayList<String>();
+			bAnswers.add(settings.getUidCoutner());
+			bAnswers.add("Business");
+
+			bQuestions.add("First Name: ");
+			bQuestions.add("Last Name: ");
+			bQuestions.add("Phone Number: ");
+			bQuestions.add("Email: ");
+			bQuestions.add("Address: ");
+			bQuestions.add("City: ");
+			bQuestions.add("State: ");
+			bQuestions.add("Zipcode: ");
+			bQuestions.add("Country: ");
+			bQuestions.add("Picture: ");
+			bQuestions.add("Business Phone: ");
+			bQuestions.add("Open Hour: ");
+			bQuestions.add("Close Hour: ");
+			bQuestions.add("Site Url: ");
+
+			System.out.println("Please enter the following infomation.");
+
+			for (String x : bQuestions) {
+				System.out.print(x);
+				bAnswers.add(uInput.getInputString(scanner));
+			}
+
+			contacts.add(new BusinessContact(bAnswers));
+			contacts.get(contacts.size() - 1).setUID(settings);
+
+			biz.save(this.contacts);
+		} else if (input.toLowerCase().equals("p")) {
+
+			ArrayList<String> pQuestions = new ArrayList<String>();
+			ArrayList<String> pAnswers = new ArrayList<String>();
+
+			pAnswers.add(settings.getUidCoutner());
+			pAnswers.add("Personal");
+
+			pQuestions.add("First Name: ");
+			pQuestions.add("Last Name: ");
+			pQuestions.add("Phone Number: ");
+			pQuestions.add("Email: ");
+			pQuestions.add("Address: ");
+			pQuestions.add("City: ");
+			pQuestions.add("State: ");
+			pQuestions.add("Zipcode: ");
+			pQuestions.add("Country: ");
+			pQuestions.add("Picture: ");
+			pQuestions.add("Work Phone: ");
+			pQuestions.add("Hobby: ");
+
+			System.out.println("Please enter the following infomation.");
+
+			for (String x : pQuestions) {
+				System.out.print(x);
+				pAnswers.add(uInput.getInputString(scanner));
+			}
+
+			contacts.add(new PersonContact(pAnswers));
+			contacts.get(contacts.size() - 1).setUID(settings);
+
+			biz.save(this.contacts);
+		}
+
+		settings.update();
+
 	}
 
 	/**
 	 * Removes the.
 	 */
 	// Remove a contact
-	private void remove() {
+	private void delete(String input) {
 
+		boolean match = false;
+		// Get User Input
+
+		Iterator<BaseContact> iter = contacts.iterator();
+
+		while (iter.hasNext()) {
+			BaseContact x = iter.next();
+			if (input.toLowerCase().equals(x.getUID())) {
+				System.out.println("User Found!");
+				System.out.println("Are you sure you want to delete UID. y/n");
+				System.out.println(x.toString());
+				match = true;
+
+				while (true) {
+					String input2 = uInput.getInputString(scanner);
+					if (input2.toLowerCase().equals("y")) {
+						iter.remove();
+						curMenu = 0;
+						break;
+					} else if (input2.toLowerCase().equals("n")) {
+						curMenu = 0;
+						break;
+					} else if (!input2.toLowerCase().equals("y") && !input2.toLowerCase().equals("n")) {
+						System.out.println("Invalid input. Try again.");
+					}
+				}
+
+				if (match == false) {
+					System.out.println("No Match Found");
+				}
+				// System.out.println(x.toString());
+
+			}
+		}
 	}
+
+	
 
 	/**
 	 * Display.
@@ -272,6 +524,9 @@ public class AddressBook {
 	// Display all contacts
 	private void display() {
 
+		for (BaseContact x : contacts) {
+			System.out.println(x.toString());
+		}
 	}
 
 	/**
@@ -286,9 +541,18 @@ public class AddressBook {
 	 * Search.
 	 */
 	// Display contact matching search criteria
-	private void search() {
+	private void search(String input) {
 
-		// Implement search method is base contact class that allows searching for match
-		// in class
+		Iterator<BaseContact> iter = contacts.iterator();
+
+		while (iter.hasNext()) {
+			BaseContact x = iter.next();
+			if (input.toLowerCase().equals(x.getUID())) {
+				System.out.println("User Found!");
+				curMenu = 8;
+				curContact = contacts.indexOf(x);
+				break;
+			}
+		}
 	}
 }

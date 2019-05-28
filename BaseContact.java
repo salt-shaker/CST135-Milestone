@@ -9,7 +9,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Scanner;
+
 import javax.imageio.ImageIO;
 
 // TODO: Auto-generated Javadoc
@@ -19,7 +22,8 @@ import javax.imageio.ImageIO;
  * @author Sashae
  */
 public class BaseContact {
-	
+
+	private String type;
 	private String uid;
 	private String fName;
 	private String lName;
@@ -32,32 +36,35 @@ public class BaseContact {
 	private String country;
 	private String picture;
 
-	// Person Contact - uid, fName, lName, phone, email, address, city, state, zipcode, country, picture, workPhone
-	// Business Contact - uid, fName, lName, phone, email, address, city, state, zipcode, country, picture, businessPhone, openHour, closeHour, siteURL
+	// Person Contact - uid, fName, lName, phone, email, address, city, state,
+	// zipcode, country, picture, workPhone
+	// Business Contact - uid, fName, lName, phone, email, address, city, state,
+	// zipcode, country, picture, businessPhone, openHour, closeHour, siteURL
 	/**
 	 * Instantiates a new base contact.
 	 *
-	 * @param args the args
+	 * @param bAnswers the args
 	 */
-	public BaseContact(String... args) {
-		this.uid = args[0];
-		this.fName = args[1];
-		this.lName = args[2];
-		this.phone = args[3];
-		this.email = args[4];
-		this.address = args[5];
-		this.city = args[6];
-		this.state = args[7];
-		this.zipcode = args[8];
-		this.country = args[9];
-		this.picture = args[10];
+	public BaseContact(ArrayList<String> bAnswers) {
+		this.uid = bAnswers.get(0);
+		this.type = bAnswers.get(1);
+		this.fName = bAnswers.get(2);
+		this.lName = bAnswers.get(3);
+		this.phone = bAnswers.get(4);
+		this.email = bAnswers.get(5);
+		this.address = bAnswers.get(6);
+		this.city = bAnswers.get(7);
+		this.state = bAnswers.get(8);
+		this.zipcode = bAnswers.get(9);
+		this.country = bAnswers.get(10);
+		this.picture = bAnswers.get(11);
 	}
 
 	/**
 	 * Instantiates a new base contact.
 	 */
 	public BaseContact() {
-		this.uid = setUID();
+		this.uid = null;
 		this.fName = "First Name";
 		this.lName = "Last Name";
 		this.phone = "888-888-8888";
@@ -69,16 +76,17 @@ public class BaseContact {
 		this.country = "Wakanda";
 		this.picture = null;
 	}
-	
+
 	/**
 	 * Sets the UID.
 	 *
 	 * @return the string
 	 */
-	public String setUID() {
-		return "1";
+	public void setUID(Settings settings) {
+		if (this.uid == null)
+			this.uid = settings.getUidCoutner();
 	}
-	
+
 	public String getUID() {
 		return this.uid;
 	}
@@ -130,10 +138,10 @@ public class BaseContact {
 			this.picture = Base64.getEncoder().encodeToString(byteArray);
 			fis.close();
 		} catch (IOException e) {
-			//TODO Auto-generated catch block
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			this.picture = null;
-		} 
+		}
 
 	}
 
@@ -307,7 +315,7 @@ public class BaseContact {
 	public BufferedImage getDecodedPicture() {
 		return toBufferedImage();
 	}
-	
+
 	public String getEncodedImage() {
 		return this.picture;
 	}
@@ -321,4 +329,21 @@ public class BaseContact {
 		imageToString(imagePath);
 	}
 
+	/**
+	 * @return
+	 */
+	public Object getType() {
+		// TODO Auto-generated method stub
+		return this.type;
+	}
+	
+	// @override
+	public void fOutput() {
+		
+	}
+
+	// @override
+	public boolean editiableFields(String string, Scanner scanner) {
+		return true;
+	}
 }
