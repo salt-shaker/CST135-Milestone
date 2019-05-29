@@ -65,8 +65,8 @@ public class AddressBook {
 
 		// Get Current Menu
 		getMenu();
-		
-		if(curMenu == 8) {
+
+		if (curMenu == 8) {
 			contacts.get(curContact).fOutput();
 		}
 
@@ -127,6 +127,8 @@ public class AddressBook {
 			return menu7(input);
 		case 8:
 			return menu8(input);
+		case 9:
+			return menu9(input);
 		}
 		return true;
 	}
@@ -237,7 +239,11 @@ public class AddressBook {
 		case "exit":
 			return false;
 		default:
-			
+			if (userExist(input)) {
+				search(input);
+			} else {
+				System.out.println("Input not valid!");
+			}
 		}
 		return true;
 	}
@@ -290,7 +296,9 @@ public class AddressBook {
 				// Shows contact info and options { Call, Text, Email, Go To Web Site, Edit,
 				// Delete, back, exit}
 				// add variable to track current contact being edited
-				search(input);
+				curContact = Integer.parseInt(input.toLowerCase());
+				curMenu = 9;
+				// search(input);
 			} else {
 				System.out.println("Input not valid!");
 			}
@@ -316,29 +324,17 @@ public class AddressBook {
 			return false;
 		case "":
 			display();
+			break;
 		default:
-
+			if (userExist(input)) {
+				curContact = Integer.parseInt(input.toLowerCase());
+				curMenu = 9;
+			} else {
+				System.out.println("Input not valid!");
+			}
 		}
 
 		return true;
-	}
-
-	/**
-	 * @param string
-	 * @return
-	 */
-	private boolean userExist(String input) {
-		try {
-			for (BaseContact x : contacts) {
-				if (x.getUID().equals(input)) {
-					return true;
-				}
-			}
-		} catch (Exception e) {
-			System.out.println("Something Went Wrong in UserExist()");
-		}
-
-		return false;
 	}
 
 	/**
@@ -351,25 +347,71 @@ public class AddressBook {
 	private boolean menu7(String input) {
 		// Check User Input
 		switch (input.toLowerCase()) {
+		case "uid ascending":
+			/* Sorting based on UID */
+			System.out.println("Contact UID ASC Sorting:");
+			Collections.sort(contacts, BaseContact.uidComparatorDSC);
+
+			for (BaseContact x : contacts) {
+				System.out.println(x.toString());
+			}
+			break;
+		case "uid descending":
+			/* Sorting based on UID */
+			System.out.println("Contact UID DSC Sorting:");
+			Collections.sort(contacts, BaseContact.uidComparatorDSC);
+
+			for (BaseContact x : contacts) {
+				System.out.println(x.toString());
+			}
+			break;
+		case "first name ascending":
+			/* Sorting based on Contact Name */
+			System.out.println("Contact First Name ASC Sorting:");
+			Collections.sort(contacts, BaseContact.fNameComparatorASC);
+
+			for (BaseContact x : contacts) {
+				System.out.println(x.toString());
+			}
+			break;
+		case "first name descending":
+			/* Sorting based on Contact Name */
+			System.out.println("Contact First Name DSC Sorting:");
+			Collections.sort(contacts, BaseContact.fNameComparatorDSC);
+
+			for (BaseContact x : contacts) {
+				System.out.println(x.toString());
+			}
+			break;
+		case "last name ascending":
+			/* Sorting based on Contact Name */
+			System.out.println("Contact Last Name DSC Sorting:");
+			Collections.sort(contacts, BaseContact.lNameComparatorASC);
+
+			for (BaseContact x : contacts) {
+				System.out.println(x.toString());
+			}
+			break;
+		case "last name descending":
+			/* Sorting based on Contact Name */
+			System.out.println("Contact Last Name DSC Sorting:");
+			Collections.sort(contacts, BaseContact.lNameComparatorDSC);
+
+			for (BaseContact x : contacts) {
+				System.out.println(x.toString());
+			}
+			break;
 		case "back":
 			curMenu = 0;
 			break;
 		case "exit":
 			return false;
 		default:
-			
-			/*Sorting based on Student Name*/
-			   System.out.println("Contact ASC Name Sorting:");
-			   Collections.sort(contacts, BaseContact.fNameComparatorASC);
-
-			   for(BaseContact x: contacts){
-					System.out.println(x.toString());
-			   }
 			System.out.println("Input not valid!");
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Menu 8.
 	 *
@@ -395,6 +437,42 @@ public class AddressBook {
 			} else {
 				System.out.println("Input not valid!");
 			}
+		}
+		return true;
+	}
+
+	/**
+	 * Menu 9.
+	 *
+	 * @param input the input
+	 * @return true, if successful
+	 */
+	// User Options Menu
+	private boolean menu9(String input) {
+		// Check User Input
+		switch (input.toLowerCase()) {
+
+		case "view":
+			break;
+		case "edit":
+			break;
+		case "delete":
+			break;
+		case "call":
+			break;
+		case "text":
+			break;
+		case "email":
+			break;
+		case "website":
+			break;
+		case "back":
+			curMenu = 0;
+			break;
+		case "exit":
+			return false;
+		default:
+
 		}
 		return true;
 	}
@@ -438,7 +516,12 @@ public class AddressBook {
 
 			for (String x : bQuestions) {
 				System.out.print(x);
-				bAnswers.add(uInput.getInputString(scanner));
+				String y = uInput.getInputString(scanner);
+				String z = y.replace(";", "");
+				if (y.equals("")) {
+					y = null;
+				}
+				bAnswers.add(z);
 			}
 
 			contacts.add(new BusinessContact(bAnswers));
@@ -470,7 +553,12 @@ public class AddressBook {
 
 			for (String x : pQuestions) {
 				System.out.print(x);
-				pAnswers.add(uInput.getInputString(scanner));
+				String y = uInput.getInputString(scanner);
+				String z = y.replace(";", "");
+				if (y.equals("")) {
+					y = null;
+				}
+				pAnswers.add(z);
 			}
 
 			contacts.add(new PersonContact(pAnswers));
@@ -484,7 +572,7 @@ public class AddressBook {
 	}
 
 	/**
-	 * Removes the.
+	 * Removes contact from contact list if match is found
 	 */
 	// Remove a contact
 	private void delete(String input) {
@@ -516,38 +604,35 @@ public class AddressBook {
 					}
 				}
 
-				if (match == false) {
-					System.out.println("No Match Found");
-				}
-				// System.out.println(x.toString());
-
 			}
+		}
+		if (match == false) {
+			System.out.println("No Match Found");
 		}
 	}
 
-	
-
 	/**
-	 * Display.
+	 * Display all contact to console in UID order
 	 */
 	// Display all contacts
 	private void display() {
-
 		for (BaseContact x : contacts) {
 			System.out.println(x.toString());
 		}
 	}
 
 	/**
-	 * Sort by.
+	 * Sort the contacts list
+	 * 
+	 * @param input - specifies the type of sort to be done on contacts list
 	 */
 	// Display a sorted list of all contacts
-	private void sortBy() {
+	private void sortBy(String input) {
 
 	}
 
 	/**
-	 * Search.
+	 * Search contacts for based search criteria
 	 */
 	// Display contact matching search criteria
 	private void search(String input) {
@@ -563,5 +648,23 @@ public class AddressBook {
 				break;
 			}
 		}
+	}
+
+	/**
+	 * @param string
+	 * @return
+	 */
+	private boolean userExist(String input) {
+		try {
+			for (BaseContact x : contacts) {
+				if (x.getUID().equals(input)) {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Something Went Wrong in UserExist()");
+		}
+
+		return false;
 	}
 }

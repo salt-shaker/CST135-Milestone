@@ -75,57 +75,57 @@ public class PersonContact extends BaseContact {
 	public boolean editiableFields(String input, Scanner scanner) {
 		if (input.toLowerCase().equals("first name")) {
 			System.out.println("Please enter the new First Name");
-			super.setfName(scanner.nextLine());
+			super.setfName(sanatize(scanner.nextLine()));
 			System.out.println("Successfully updated First Name");
 			return true;
 		} else if (input.toLowerCase().equals("last name")) {
 			System.out.println("Please enter the new Last Name");
-			super.setlName(scanner.nextLine());
+			super.setlName(sanatize(scanner.nextLine()));
 			System.out.println("Successfully updated Last Name");
 			return true;
 		} else if (input.toLowerCase().equals("phone")) {
 			System.out.println("Please enter the new Phone");
-			super.setPhone(scanner.nextLine());
+			super.setPhone(sanatize(scanner.nextLine()));
 			System.out.println("Successfully updated Phone");
 			return true;
 		} else if (input.toLowerCase().equals("email")) {
 			System.out.println("Please enter the new Email");
-			super.setEmail(scanner.nextLine());
+			super.setEmail(sanatize(scanner.nextLine()));
 			System.out.println("Successfully updated Email");
 			return true;
 		} else if (input.toLowerCase().equals("address")) {
 			System.out.println("Please enter the new Address");
-			super.setAddress(scanner.nextLine());
+			super.setAddress(sanatize(scanner.nextLine()));
 			System.out.println("Successfully updated Address");
 			return true;
 		} else if (input.toLowerCase().equals("city")) {
 			System.out.println("Please enter the new City");
-			super.setCity(scanner.nextLine());
+			super.setCity(sanatize(scanner.nextLine()));
 			System.out.println("Successfully updated City");
 			return true;
 		} else if (input.toLowerCase().equals("state")) {
 			System.out.println("Please enter the new State");
-			super.setState(scanner.nextLine());
+			super.setState(sanatize(scanner.nextLine()));
 			System.out.println("Successfully updated State");
 			return true;
 		} else if (input.toLowerCase().equals("zipcode")) {
 			System.out.println("Please enter the new Zipcode");
-			super.setZipcode(scanner.nextLine());
+			super.setZipcode(sanatize(scanner.nextLine()));
 			System.out.println("Successfully updated Zipcode");
 			return true;
 		} else if (input.toLowerCase().equals("country")) {
 			System.out.println("Please enter the new Country");
-			super.setCountry(scanner.nextLine());
+			super.setCountry(sanatize(scanner.nextLine()));
 			System.out.println("Successfully updated Country");
 			return true;
 		} else if (input.toLowerCase().equals("work phone")) {
 			System.out.println("Please enter the new Work Phone");
-			this.workPhone = scanner.nextLine();
+			this.workPhone = sanatize(scanner.nextLine());
 			System.out.println("Successfully updated Work Phone");
 			return true;
 		} else if (input.toLowerCase().equals("hobby")) {
 			System.out.println("Please enter the Hobby");
-			this.hobby = scanner.nextLine();
+			this.hobby = sanatize(scanner.nextLine());
 			System.out.println("Successfully updated Hobby");
 			return true;
 		} else {

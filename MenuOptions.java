@@ -22,7 +22,7 @@ public class MenuOptions {
 	}
 
 	/**
-	 * Main. 
+	 * Main.
 	 */
 	private void main() {
 		System.out.println(" __________________________");
@@ -35,6 +35,28 @@ public class MenuOptions {
 		System.out.println("|    4. Delete             |");
 		System.out.println("|    5. Search             |");
 		System.out.println("|    6. Exit               |");
+		System.out.println("|                          |");
+		System.out.println("|   Type 'help' for help   |");
+		System.out.println("|__________________________|");
+	}
+
+	/**
+	 * Contact Options.
+	 */
+	private void cOptions() {
+		System.out.println(" __________________________");
+		System.out.println("|      CONTACT OPTIONS     |");
+		System.out.println("|                          |");
+		System.out.println("| Options:                 |");
+		System.out.println("|    1. View               |");
+		System.out.println("|    2. Edit               |");
+		System.out.println("|    3. Delete             |");
+		System.out.println("|    4. Call               |");
+		System.out.println("|    5. Text               |");
+		System.out.println("|    6. Email              |");
+		System.out.println("|    7. Website            |");
+		System.out.println("|    8. Back               |");
+		System.out.println("|    9. Exit               |");
 		System.out.println("|                          |");
 		System.out.println("|   Type 'help' for help   |");
 		System.out.println("|__________________________|");
@@ -60,17 +82,19 @@ public class MenuOptions {
 
 	// View Sub-menu Display
 	private void display() {
-
 		System.out.println(" __________________________");
 		System.out.println("|       DISPLAY MENU       |");
 		System.out.println("|                          |");
 		System.out.println("|   To view contact enter  |");
 		System.out.println("|     UID for contact.     |");
 		System.out.println("|                          |");
+		System.out.println("|   Press the 'enter' key  |");
+		System.out.println("|    to display contacts   |");
+		System.out.println("|                          |");
 		System.out.println("|   Type 'help' for help   |");
 		System.out.println("|__________________________|");
 	}
-	
+
 	// Sort Menu
 	private void sort() {
 		System.out.println(" __________________________");
@@ -114,7 +138,7 @@ public class MenuOptions {
 		System.out.println("|   Type 'help' for help   |");
 		System.out.println("|__________________________|");
 	}
-	
+
 	/**
 	 * Edit.
 	 */
@@ -201,6 +225,10 @@ public class MenuOptions {
 		case 8:
 			editing();
 			logger.log("@ Editing Menu");
+			break;
+		case 9:
+			cOptions();
+			logger.log("@ Contact Options Menu");
 			break;
 		}
 	}

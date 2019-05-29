@@ -480,4 +480,12 @@ public class BaseContact {
 
 		}
 	};
+	
+	public String sanatize(String dirtyString) {
+		String x = dirtyString.replace(";", "");
+		if (x.equals("")) {
+			x = null;
+		}
+		return x;
+	}
 }
